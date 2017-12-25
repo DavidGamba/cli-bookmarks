@@ -1,0 +1,36 @@
+language: go
+
+go:
+  - 1.9
+
+rvm:
+  - 2.2
+
+before_install:
+  - gem install asciidoctor
+  # Get rpmbuild
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq rpm
+
+script:
+  - make debug
+  - make deps
+  - make test
+  - make build
+  - make man
+
+after_success:
+  - make rpm
+  - make debug
+  # Delete build artifacts that are not deployed
+  - rm cli-bookmarks cli-bookmarks.1
+
+deploy:
+  provider: releases
+  api_key:
+    secure: WColDHzDiHDI3404vPST8Gp5bQ4PWqFD3qbRgOPFIJow31G894f/hcVl+6eRp2bWOKUwKTEhtMPLmrwLCyZhUUv80w5xIGE9Qm8msqFFgfXkfmoP7x+yBOjV7zqkSamzq9RVmmhpqnMrJGB/P0NN0pyPTV6YTRTvuluwK0X7X3k3NflXdCR8PUXbzTSEjZ7KI8nVsib3bI4BQ4y0VsCiSpCjPcGE1Fw9Qd3rBHBeoDKsaJOsP3PD+wW0XWTJvOEJwBx08Nf8c37Xrp5BELub9YN+/5tACuyz0HkmCg45/3OfY0j40xKirtJwVpZNK30RLyHNq5OMCd9CDS9qghJymYlDYM/GpkwiMSYbX73tfVETLEvgihAvi12X2OSgh/ntEP6r9aotgaAIglrSL9jymzekoQ3etWXZgFm0VqBVdE5j1xlJtRkJTegWs9P+ZSarBBEBwi1a2ZFCGYCAQdZj3SEB17ZTx5tQHWUM/mTwlcuKTc7wiTlTDwSknJLOyixrTSa7e6iEQz6KFiFZ+pGYHVB7GYa/cauE8dbTt1AVjlpvFttnA6xS1NQBabftmhiJM/8s744Xz8mEfH95Rr+WD41rkp77EDfRyL+Gg4ipsz/g36wY0UnU52pOnoCweioWGWJZoJ+SH895WcHrr0ufecrY4LPMhEoPJ74ZS8/7sQE=
+  file: ./RPMS/cli-bookmarks-0.1.0-1.x86_64.rpm
+  skip_cleanup: true
+  on:
+    repo: DavidGamba/cli-bookmarks
+    branch: master
