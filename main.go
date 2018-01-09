@@ -25,6 +25,14 @@ import (
 	"github.com/DavidGamba/go-getoptions"
 )
 
+// Build Variable Override with absolute path to toml configuration file
+//
+//     go build -ldflags="-X main.ConfigFilePath=/path/to/cli-bookmarks.toml"
+var ConfigFilePath string
+
+// Default Absolute path to toml configuration file
+var defaultConfigFilePath = os.Getenv("HOME") + string(os.PathSeparator) + ".cli-bookmarks.toml"
+
 func synopsis() {
 	synopsis := `# Show the GUI
 cb
@@ -49,10 +57,12 @@ cli-bookmarks --version
 func main() {
 	log.SetOutput(ioutil.Discard)
 	var completionCur, completionPrev string
+	var configFilePathOverride string
 	opt := getoptions.New()
 	opt.Bool("help", false)
 	opt.Bool("debug", false)
 	opt.Bool("version", false)
+	opt.StringVar(&configFilePathOverride, "file", "")
 	opt.StringVarOptional(&completionCur, "completion-current", "")
 	opt.StringVarOptional(&completionPrev, "completion-previous", "")
 	remaining, err := opt.Parse(os.Args[1:])
@@ -74,7 +84,7 @@ func main() {
 	log.Printf("Called with: %v", os.Args)
 	log.Printf("remaining: %v", remaining)
 
-	cfg, err := readConfigFile()
+	cfg, err := readConfigFile(configFilePathOverride)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "ERROR Failed to read config file: %s\n", err)
 		os.Exit(1)
@@ -124,7 +134,18 @@ func main() {
 	}
 }
 
-func readConfigFile() (config.Config, error) {
-	configFilePath := os.Getenv("HOME") + string(os.PathSeparator) + ".cli-bookmarks.toml"
+// readConfigFile - reads the config file in the following precedence:
+// 1. (highest) --file <path> cmd line option.
+// 2. ConfigFilePath build parameter.
+// 3. default ConfigFilePath
+func readConfigFile(configFilePathOverride string) (config.Config, error) {
+	var configFilePath string
+	if configFilePathOverride != "" {
+		configFilePath = configFilePathOverride
+	} else if ConfigFilePath != "" {
+		configFilePath = ConfigFilePath
+	} else {
+		configFilePath = defaultConfigFilePath
+	}
 	return config.ParseFile(configFilePath)
 }
