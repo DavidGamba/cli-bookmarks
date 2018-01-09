@@ -147,5 +147,10 @@ func readConfigFile(configFilePathOverride string) (config.Config, error) {
 	} else {
 		configFilePath = defaultConfigFilePath
 	}
+	if _, err := os.Stat(configFilePath); os.IsNotExist(err) {
+		fmt.Fprintf(os.Stderr, "WARNING: Config File does not exist, creating empty one: %s\n", configFilePath)
+		ioutil.WriteFile(configFilePath, []byte("[bookmakrs]\n"), 0644)
+	}
+
 	return config.ParseFile(configFilePath)
 }
