@@ -75,7 +75,7 @@ func main() {
 		os.Exit(1)
 	}
 	if opt.Called("version") {
-		fmt.Println(semver.Version{Version: "0.1.0"})
+		fmt.Println(semver.Version{Version: "0.2.0"})
 		os.Exit(1)
 	}
 	if opt.Called("debug") {
