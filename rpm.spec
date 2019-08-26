@@ -6,7 +6,7 @@
 
 Name:    cli-bookmarks
 Summary: CLI Filesystem Directory Bookmarks
-Version: 0.2.0
+Version: 0.3.0
 Release: 1
 License: MPL-2.0
 Group:   Development/Tools
