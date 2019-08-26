@@ -24,17 +24,17 @@ func Test_listFiles(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			"test_tree listing",
-			args{"../test_tree"},
+			"test_files/test_tree listing",
+			args{"../test_files/test_tree"},
 			[]string{
-				"../test_tree/.hiddenA",
-				"../test_tree/.hiddenB",
-				"../test_tree/DirA",
-				"../test_tree/DirB",
-				"../test_tree/dirA",
-				"../test_tree/dirB",
-				"../test_tree/pathA",
-				"../test_tree/pathB"},
+				"../test_files/test_tree/.hiddenA",
+				"../test_files/test_tree/.hiddenB",
+				"../test_files/test_tree/DirA",
+				"../test_files/test_tree/DirB",
+				"../test_files/test_tree/dirA",
+				"../test_files/test_tree/dirB",
+				"../test_files/test_tree/pathA",
+				"../test_files/test_tree/pathB"},
 			false,
 		},
 	}
@@ -64,27 +64,27 @@ func Test_listFilesWithFilter(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			"test_tree listing",
-			args{"../test_tree", ""},
+			"test_files/test_tree listing",
+			args{"../test_files/test_tree", ""},
 			[]string{
-				"../test_tree/.hiddenA",
-				"../test_tree/.hiddenB",
-				"../test_tree/DirA",
-				"../test_tree/DirB",
-				"../test_tree/dirA",
-				"../test_tree/dirB",
-				"../test_tree/pathA",
-				"../test_tree/pathB"},
+				"../test_files/test_tree/.hiddenA",
+				"../test_files/test_tree/.hiddenB",
+				"../test_files/test_tree/DirA",
+				"../test_files/test_tree/DirB",
+				"../test_files/test_tree/dirA",
+				"../test_files/test_tree/dirB",
+				"../test_files/test_tree/pathA",
+				"../test_files/test_tree/pathB"},
 			false,
 		},
 		{
-			"test_tree listing filtered",
-			args{"../test_tree", "d"},
+			"test_files/test_tree listing filtered",
+			args{"../test_files/test_tree", "d"},
 			[]string{
-				"../test_tree/DirA",
-				"../test_tree/DirB",
-				"../test_tree/dirA",
-				"../test_tree/dirB"},
+				"../test_files/test_tree/DirA",
+				"../test_files/test_tree/DirB",
+				"../test_files/test_tree/dirA",
+				"../test_files/test_tree/dirB"},
 			false,
 		},
 	}

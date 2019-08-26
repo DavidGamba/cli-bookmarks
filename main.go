@@ -40,7 +40,7 @@ cb
 # Use a bookmark
 cb bookmark_alias
 
-# Use a bookmark and navigate its subdirectories
+# Use a bookmark and navigate its sub directories
 cb bookmark_alias <tab>
 
 Bookmarks are stored in the ~/.cli-bookmarks.toml file.
@@ -149,7 +149,7 @@ func readConfigFile(configFilePathOverride string) (config.Config, error) {
 	}
 	if _, err := os.Stat(configFilePath); os.IsNotExist(err) {
 		fmt.Fprintf(os.Stderr, "WARNING: Config File does not exist, creating empty one: %s\n", configFilePath)
-		ioutil.WriteFile(configFilePath, []byte("[bookmakrs]\n"), 0644)
+		ioutil.WriteFile(configFilePath, []byte("[bookmarks]\n"), 0644)
 	}
 
 	return config.ParseFile(configFilePath)

@@ -16,7 +16,7 @@ import (
 
 func Test_ParseFile(t *testing.T) {
 	t.Run("Read proper confing file", func(t *testing.T) {
-		c, err := ParseFile("../test_tree/cli-bookmarks.toml")
+		c, err := ParseFile("../test_files/test_tree/cli-bookmarks.toml")
 		if err != nil {
 			t.Errorf("Failed to parse config file: %s", err)
 		}

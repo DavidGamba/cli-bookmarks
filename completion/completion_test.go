@@ -26,7 +26,7 @@ func Test_fileListCompletion(t *testing.T) {
 	}{
 		{
 			"t alias",
-			args{"t", "../test_tree", "t"},
+			args{"t", "../test_files/test_tree", "t"},
 			[]string{
 				"t/.hiddenA",
 				"t/.hiddenB",
@@ -40,7 +40,7 @@ func Test_fileListCompletion(t *testing.T) {
 		},
 		{
 			"t alias with filepath separator",
-			args{"t", "../test_tree", "t/"},
+			args{"t", "../test_files/test_tree", "t/"},
 			[]string{
 				"t/.hiddenA",
 				"t/.hiddenB",
@@ -54,7 +54,7 @@ func Test_fileListCompletion(t *testing.T) {
 		},
 		{
 			"t alias filtered",
-			args{"t", "../test_tree", "t/d"},
+			args{"t", "../test_files/test_tree", "t/d"},
 			[]string{
 				"t/DirA",
 				"t/DirB",
@@ -64,7 +64,7 @@ func Test_fileListCompletion(t *testing.T) {
 		},
 		{
 			"test alias",
-			args{"test", "../test_tree", "test"},
+			args{"test", "../test_files/test_tree", "test"},
 			[]string{
 				"test/.hiddenA",
 				"test/.hiddenB",
@@ -78,7 +78,7 @@ func Test_fileListCompletion(t *testing.T) {
 		},
 		{
 			"t alias filtered",
-			args{"t", "../test_tree", "t/pathA/"},
+			args{"t", "../test_files/test_tree", "t/pathA/"},
 			[]string{"t/pathA/pathAdirA", "t/pathA/pathAdirB"},
 			false,
 		},
@@ -174,7 +174,7 @@ func Test_completionResults(t *testing.T) {
 		},
 		{
 			"select alias",
-			args{map[string]string{"key": "../test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "key/"},
+			args{map[string]string{"key": "../test_files/test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "key/"},
 			[]string{
 				"key/.hiddenA",
 				"key/.hiddenB",
@@ -188,13 +188,13 @@ func Test_completionResults(t *testing.T) {
 		},
 		{
 			"wrong alias",
-			args{map[string]string{"key": "../test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "test/"},
+			args{map[string]string{"key": "../test_files/test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "test/"},
 			[]string{},
 			true,
 		},
 		{
 			"select alias and filter",
-			args{map[string]string{"key": "../test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "key/d"},
+			args{map[string]string{"key": "../test_files/test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "key/d"},
 			[]string{
 				"key/DirA",
 				"key/DirB",
@@ -204,25 +204,25 @@ func Test_completionResults(t *testing.T) {
 		},
 		{
 			"select alias with single dir match",
-			args{map[string]string{"key": "../test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "key/pathA"},
+			args{map[string]string{"key": "../test_files/test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "key/pathA"},
 			[]string{"key/pathA/"},
 			false,
 		},
 		{
 			"select alias and filter dir",
-			args{map[string]string{"key": "../test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "key/pathA/"},
+			args{map[string]string{"key": "../test_files/test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "key/pathA/"},
 			[]string{"key/pathA/pathAdirA", "key/pathA/pathAdirB"},
 			false,
 		},
 		{
 			"select alias and filter dir",
-			args{map[string]string{"key": "../test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "key/pathA/pathAdirA"},
+			args{map[string]string{"key": "../test_files/test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "key/pathA/pathAdirA"},
 			[]string{"key/pathA/pathAdirA/"},
 			false,
 		},
 		{
 			"select alias and filter dir",
-			args{map[string]string{"key": "../test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "key/pathA/pathAdirA/"},
+			args{map[string]string{"key": "../test_files/test_tree", "Key": "Value", "key2": "value2", "other": "otherValue"}, "key/pathA/pathAdirA/"},
 			[]string{"key/pathA/pathAdirA/pathAdirAsubdirA", "key/pathA/pathAdirA/pathAdirAsubdirB"},
 			// []string{"key/pathA/pathAdirA/"},
 			false,
