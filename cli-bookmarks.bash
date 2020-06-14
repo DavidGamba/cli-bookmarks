@@ -27,4 +27,4 @@ function _cliBookmarks() {
   COMPREPLY=(`cli-bookmarks --completion-current ${2} --completion-previous ${3}`)
   return 0
 }
-complete -o nospace -F _cliBookmarks cb
+complete -o filenames -o nospace -F _cliBookmarks cb
