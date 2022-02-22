@@ -2,6 +2,11 @@
 
 cli-bookmarks is yet another tool to bookmark filesystem locations and access them in a fast and easy way.
 
+[IMPORTANT]
+====
+This project has a new home here: https://github.com/DavidGamba/dgtools/tree/master/cli-bookmarks
+====
+
 Features:
 
 * Easy bash completion setup.
